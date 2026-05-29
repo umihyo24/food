@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="ja">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Food Atlas</title>
+    <title>食の地図帳</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -12,64 +12,123 @@
         <div class="brand">
           <div class="brand-mark">✥</div>
           <div>
-            <h1>Food Atlas</h1>
-            <p>Civilizations begin with what keeps.</p>
+            <h1>食の地図帳</h1>
+            <p data-text="tagline">残る食べものから、文明は芽吹く。</p>
           </div>
         </div>
         <div id="resourceStrip" class="resource-strip" aria-live="polite"></div>
         <div class="time-card">
-          <span id="seasonLabel">Year 1 · Spring</span>
-          <strong id="dayLabel">Day 1</strong>
+          <span id="seasonLabel">1年 · 春</span>
+          <strong id="dayLabel">1日目</strong>
         </div>
       </header>
 
       <main class="game-layout">
         <aside class="panel left-panel">
           <div class="panel-heading">
-            <h2>Technologies</h2>
-            <span id="researchPoints">0 lore</span>
+            <h2 data-text="technologies">研究</h2>
+            <span id="researchPoints">0 伝承点</span>
           </div>
           <div id="technologyList" class="technology-list"></div>
+          <div class="panel-heading mission-heading">
+            <h2 data-text="missions">任務</h2>
+          </div>
+          <div id="missionList" class="mission-list"></div>
         </aside>
 
         <section class="map-section">
           <div class="map-toolbar">
-            <div class="tool-group" role="group" aria-label="Build villages">
-              <button class="tool-button active" data-tool="inspect">Inspect</button>
-              <button class="tool-button" data-tool="fishing">Fishing Village</button>
-              <button class="tool-button" data-tool="farming">Farming Village</button>
-              <button class="tool-button" data-tool="herding">Herding Village</button>
+            <div
+              class="tool-group"
+              role="group"
+              data-aria="buildVillages"
+              aria-label="村を建てる"
+            >
+              <button
+                class="tool-button active"
+                data-tool="inspect"
+                data-text="inspect"
+              >
+                調べる
+              </button>
+              <button
+                class="tool-button"
+                data-tool="fishing"
+                data-text="villageTypes.fishing"
+              >
+                漁村
+              </button>
+              <button
+                class="tool-button"
+                data-tool="farming"
+                data-text="villageTypes.farming"
+              >
+                農村
+              </button>
+              <button
+                class="tool-button"
+                data-tool="herding"
+                data-text="villageTypes.herding"
+              >
+                牧畜村
+              </button>
             </div>
-            <div class="tool-group" role="group" aria-label="Route tools">
-              <button class="tool-button" data-tool="route">Create Route</button>
-              <button id="advanceDayButton" class="primary-button">Advance Day</button>
+            <div
+              class="tool-group"
+              role="group"
+              data-aria="routeTools"
+              aria-label="交易の道具"
+            >
+              <button
+                class="tool-button"
+                data-tool="route"
+                data-text="createRoute"
+              >
+                交易路を作る
+              </button>
+              <button
+                id="advanceDayButton"
+                class="primary-button"
+                data-text="advanceDay"
+              >
+                一日進める
+              </button>
             </div>
           </div>
-          <canvas id="mapCanvas" width="900" height="900" aria-label="50 by 50 Food Atlas map"></canvas>
-          <div id="mapHint" class="map-hint">Place villages near matching terrain, then connect them with trade routes.</div>
+          <canvas
+            id="mapCanvas"
+            width="900"
+            height="900"
+            aria-label="食の地図帳の50×50地図"
+          ></canvas>
+          <div id="mapHint" class="map-hint">
+            村を土地に合わせて置き、交易路で結びましょう。
+          </div>
         </section>
 
         <aside class="panel right-panel">
           <div class="panel-heading">
-            <h2>Encyclopedia</h2>
+            <h2 data-text="encyclopedia">食文化図鑑</h2>
             <span id="completionLabel">0%</span>
           </div>
-          <div class="progress-frame"><div id="completionBar" class="progress-bar"></div></div>
+          <div class="progress-frame">
+            <div id="completionBar" class="progress-bar"></div>
+          </div>
           <div id="encyclopediaList" class="encyclopedia-list"></div>
         </aside>
       </main>
 
       <footer class="bottom-panel">
         <section>
-          <h2>Village Information</h2>
+          <h2 data-text="villageInfo">村の情報</h2>
           <div id="villageInfo" class="info-grid"></div>
         </section>
         <section>
-          <h2>Trade Routes</h2>
+          <h2 data-text="tradeRoutes">交易路</h2>
           <div id="tradeInfo" class="route-list"></div>
         </section>
         <section>
-          <h2>Event Log</h2>
+          <h2 data-text="eventLog">出来事</h2>
           <ol id="eventLog" class="event-log"></ol>
         </section>
       </footer>
@@ -77,17 +136,42 @@
 
     <div id="startOverlay" class="overlay">
       <div class="modal parchment">
-        <h2>Food Atlas</h2>
-        <p>Guide food cultures without commanding people directly. Place villages, open routes, research preservation, and watch cuisines emerge.</p>
-        <button id="startButton" class="primary-button large">Begin Atlas</button>
+        <h2 data-text="appTitle">食の地図帳</h2>
+        <p data-text="startLead">
+          村を置き、交易を結び、技術を選び、土地ごとの好みを満たしながら食文化を育てましょう。
+        </p>
+        <button id="startButton" class="primary-button large" data-text="begin">
+          地図帳をひらく
+        </button>
+      </div>
+    </div>
+
+    <div id="notificationOverlay" class="overlay notification-overlay hidden">
+      <div class="modal parchment notification-modal">
+        <div id="notificationIcon" class="notification-icon">🏮</div>
+        <h2 id="notificationTitle">知らせ</h2>
+        <p id="notificationText">内容</p>
+        <button
+          id="notificationClose"
+          class="primary-button large"
+          data-text="close"
+        >
+          閉じる
+        </button>
       </div>
     </div>
 
     <div id="gameoverOverlay" class="overlay hidden">
       <div class="modal parchment">
-        <h2 id="gameoverTitle">Atlas Complete</h2>
-        <p id="gameoverText">Your encyclopedia reached the goal.</p>
-        <button id="restartButton" class="primary-button large">Start Again</button>
+        <h2 id="gameoverTitle">食の地図帳 完成</h2>
+        <p id="gameoverText">図鑑の目標に到達しました。</p>
+        <button
+          id="restartButton"
+          class="primary-button large"
+          data-text="restart"
+        >
+          もう一度はじめる
+        </button>
       </div>
     </div>
 
