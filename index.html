@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Food Atlas</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="app" class="app-shell">
+      <header class="topbar">
+        <div class="brand">
+          <div class="brand-mark">✥</div>
+          <div>
+            <h1>Food Atlas</h1>
+            <p>Civilizations begin with what keeps.</p>
+          </div>
+        </div>
+        <div id="resourceStrip" class="resource-strip" aria-live="polite"></div>
+        <div class="time-card">
+          <span id="seasonLabel">Year 1 · Spring</span>
+          <strong id="dayLabel">Day 1</strong>
+        </div>
+      </header>
+
+      <main class="game-layout">
+        <aside class="panel left-panel">
+          <div class="panel-heading">
+            <h2>Technologies</h2>
+            <span id="researchPoints">0 lore</span>
+          </div>
+          <div id="technologyList" class="technology-list"></div>
+        </aside>
+
+        <section class="map-section">
+          <div class="map-toolbar">
+            <div class="tool-group" role="group" aria-label="Build villages">
+              <button class="tool-button active" data-tool="inspect">Inspect</button>
+              <button class="tool-button" data-tool="fishing">Fishing Village</button>
+              <button class="tool-button" data-tool="farming">Farming Village</button>
+              <button class="tool-button" data-tool="herding">Herding Village</button>
+            </div>
+            <div class="tool-group" role="group" aria-label="Route tools">
+              <button class="tool-button" data-tool="route">Create Route</button>
+              <button id="advanceDayButton" class="primary-button">Advance Day</button>
+            </div>
+          </div>
+          <canvas id="mapCanvas" width="900" height="900" aria-label="50 by 50 Food Atlas map"></canvas>
+          <div id="mapHint" class="map-hint">Place villages near matching terrain, then connect them with trade routes.</div>
+        </section>
+
+        <aside class="panel right-panel">
+          <div class="panel-heading">
+            <h2>Encyclopedia</h2>
+            <span id="completionLabel">0%</span>
+          </div>
+          <div class="progress-frame"><div id="completionBar" class="progress-bar"></div></div>
+          <div id="encyclopediaList" class="encyclopedia-list"></div>
+        </aside>
+      </main>
+
+      <footer class="bottom-panel">
+        <section>
+          <h2>Village Information</h2>
+          <div id="villageInfo" class="info-grid"></div>
+        </section>
+        <section>
+          <h2>Trade Routes</h2>
+          <div id="tradeInfo" class="route-list"></div>
+        </section>
+        <section>
+          <h2>Event Log</h2>
+          <ol id="eventLog" class="event-log"></ol>
+        </section>
+      </footer>
+    </div>
+
+    <div id="startOverlay" class="overlay">
+      <div class="modal parchment">
+        <h2>Food Atlas</h2>
+        <p>Guide food cultures without commanding people directly. Place villages, open routes, research preservation, and watch cuisines emerge.</p>
+        <button id="startButton" class="primary-button large">Begin Atlas</button>
+      </div>
+    </div>
+
+    <div id="gameoverOverlay" class="overlay hidden">
+      <div class="modal parchment">
+        <h2 id="gameoverTitle">Atlas Complete</h2>
+        <p id="gameoverText">Your encyclopedia reached the goal.</p>
+        <button id="restartButton" class="primary-button large">Start Again</button>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
